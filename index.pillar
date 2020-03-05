@@ -2,5 +2,5 @@
 ${inputFile:path=Chapters/Zinc-Encoding-Meta/Zinc-Encoding-Meta.pillar}$
 ${inputFile:path=Chapters/Zinc-HTTP-Client/Zinc-HTTP-Client.pillar}$
 ${inputFile:path=Chapters/Zinc-HTTP-Server/Zinc-HTTP-Server.pillar}$
-${inputFile:path=Chapters/Zinc-TispAndTricks/Zinc-TispAndTricks.pillar}$
+${inputFile:path=Chapters/Zinc-TipsAndTricks/Zinc-TipsAndTricks.pillar}$
 
