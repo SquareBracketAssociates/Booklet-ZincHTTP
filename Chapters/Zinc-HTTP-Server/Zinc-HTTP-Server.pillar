@@ -209,7 +209,7 @@ The following example shows how to log events in a file named
 
 [[[
 | logger |
-loggerStream := (Smalltalk imageDirectory / 'zn.log') writeStream.
+loggerStream := (FileSystem workingDirectory / 'zn.log') writeStream.
 ZnLogEvent announcer
    when: ZnLogEvent
    do: [ :event | loggerStream lf; print: event ].
@@ -387,7 +387,7 @@ an already instantiated response.
 
 !!!Character Encoding
 
-Proper character encoding and decoding is crucial in today's international world. Pharo Smalltalk encodes characters and strings using Unicode. The primary
+Proper character encoding and decoding is crucial in today's international world. Pharo  encodes characters and strings using Unicode. The primary
 internet encoding is UTF-8, but a couple of others are used as well. To translate between these two, a concrete ==ZnCharacterEncoding== subclass like ==ZnUTF8Encoder== is used.
 
 ==ZnCharacterEncoding== is an extension and reimplementation of regular ==TextConverter==. It only works on binary input and generated binary output and it adds the
@@ -467,8 +467,8 @@ beyond the boundaries of one single request's body, provided the content length 
 
 !!!Seaside Adaptor
 
-*Seaside>http://www.seaside.st/* is a well known, cross platform, advanced Smalltalk web application framework. It does not provide its own HTTP server but
-relies on an existing one by means of an adaptor. It works well with Zn, through the use of a ==ZnZincServerAdaptor==. It comes already included with certain Seaside distributions and on Pharo Smalltalk it is the default.
+*Seaside>http://www.seaside.st/* is a well known, cross platform, advanced web application framework. It does not provide its own HTTP server but
+relies on an existing one by means of an adaptor. It works well with Zn, through the use of a ==ZnZincServerAdaptor==. It comes already included with certain Seaside distributions and on Pharo it is the default.
 
 Starting this adaptor can be done using the Seaside Control panel in the normal way. Alternatively, the adaptor can be started programmatically.
 
@@ -686,7 +686,7 @@ client := ZnClient new
    yourself.
 ]]]
 
-Now we can hold the same conversation as above, only in this case in terms of real Smalltalk objects.
+Now we can hold the same conversation as above, only in this case in terms of real  objects.
 
 [[[
 client get: '/'

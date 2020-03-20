@@ -29,10 +29,10 @@ The reliable transport connection between an HTTP client and server is used bidi
 be used for just one request/response cycle, as was the case for HTTP version 1.0, or it can be reused for multiple request/response cycles, as is the default
 for HTTP version 1.1.
 
-Zinc, the short form for *Zinc HTTP>http://zn.stfx.eu/* Components, is an open-source Smalltalk framework to deal with HTTP. It models most concepts of HTTP and
-its related standards and offers both client and server functionality. One of its key goals is to offer understandability (Smalltalk's design principle number one).
-Anyone with a basic understanding of Smalltalk and the HTTP principles should be able to understand what is going on and learn, by looking at the implementation.
-Zinc, or Zn, after its namespace prefix, is an integral part of Pharo Smalltalk since version 1.3. It has been ported to other Smalltalk implementations such as Gemstone.
+Zinc, the short form for *Zinc HTTP>http://zn.stfx.eu/* Components, is an open-source  framework to deal with HTTP. It models most concepts of HTTP and
+its related standards and offers both client and server functionality. One of its key goals is to offer understandability (Pharo's design principle number one).
+Anyone with a basic understanding of Pharo and the HTTP principles should be able to understand what is going on and learn, by looking at the implementation.
+Zinc, or Zn, after its namespace prefix, is an integral part of Pharo since version 1.3. It has been ported to other systems such as Gemstone.
 
 The reference Zn implementation lives in several places:
 
@@ -713,7 +713,7 @@ entity, this would result in the 10 Mb being taken into memory. With a streaming
 a buffer of a couple of tens of Kb. This is obviously more efficient. The limitation is that this only works if the exact size is known upfront.
 
 Knowing that a ==ZnStringEntity== has a content type of XML or JSON is however not enough to interpret the data correctly. You might need a parser to convert the
-representation to Smalltalk or a writer to convert Smalltalk into the proper representation. That is where the ==ZnClient== options ==contentReader== and ==contentWriter== are useful.
+representation to Pharo or a writer to convert Pharo into the proper representation. That is where the ==ZnClient== options ==contentReader== and ==contentWriter== are useful.
 
 If the content reader is nil (the default), ==contents== will return the ==contents== of the response object, usually a ==String== or ==ByteArray==.
 
@@ -735,7 +735,7 @@ In this example, ==get== (which returns the same as ==contents==) will no longer
 in combination with an ==accept:== we handle most error cases before the content reader start doing its work, so it does no longer have to check for good incoming
 data. In any case, when the ==contentReader== throws an exception, it can be caught by the ==ifFail:== block.
 
-If the content writer is nil (the default), ==contents:== will take a Smalltalk object and pass it to ==ZnEntity== class' ==with:== instance creation method.
+If the content writer is nil (the default), ==contents:== will take a Pharo object and pass it to ==ZnEntity== class' ==with:== instance creation method.
 This will create either a ==text/plain== ==String== entity or an ==application/octectstream== ==ByteArray== entity.
 
 You could further customize the entity by sending
@@ -787,7 +787,7 @@ ZnClient new
 ]]]
 
 Some HTTP operations, particularly those involving large resources, might take some time, especially when slower networks or servers are involved. During
-interactive use, Pharo Smalltalk often indicates progress during operations that take a bit longer. ==ZnClient== can do that too using the ==signalProgress== option.
+interactive use, Pharo often indicates progress during operations that take a bit longer. ==ZnClient== can do that too using the ==signalProgress== option.
 By default this is off. Here is an example.
 
 [[[
