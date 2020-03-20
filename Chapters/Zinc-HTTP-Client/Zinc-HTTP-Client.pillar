@@ -4,18 +4,20 @@
 HTTP is arguably the most important application level network protocol for what we consider to be the Internet. It is the protocol that allows web browsers and
 web servers to communicate. It is also becoming the most popular protocol for implementing web services.
 
-With Zinc, Pharo has out of the box support for HTTP. Zinc is a robust, fast and elegant HTTP client and server library written and maintained by Sven van Caekenberghe.
+With Zinc, Pharo has out of the box support for HTTP. 
+Zinc is a robust, fast and elegant HTTP client and server library written and maintained by Sven van Caekenberghe.
 
 !!! HTTP and Zinc
-HTTP, short for Hypertext Transfer Protocol, functions as a request-response protocol in the client-server computing model. As an application level protocol it
-is layered on top of a reliable transport such as a TCP socket stream. The most important standard specification document describing HTTP version 1.1 is
-*RFC 2616>http://tools.ietf.org/html/rfc2616*. As usual, a good starting point for learning about HTTP is its *Wikipedia article>http://en.wikipedia.org/wiki/Http*.
+HTTP, short for Hypertext Transfer Protocol, functions as a request-response protocol in the client-server computing model. 
+As an application level protocol it is layered on top of a reliable transport such as a TCP socket stream.
+The most important standard specification document describing HTTP version 1.1 is *RFC 2616>http://tools.ietf.org/html/rfc2616*. 
+As usual, a good starting point for learning about HTTP is its *Wikipedia article>http://en.wikipedia.org/wiki/Http*.
 
 +Client/Server interacting via request/response>file://figures/clientServer.png|width=50|label=figclientServer+
 
 
-A client, often called user-agent, submits an HTTP request to a server which will respond with an HTTP response (see Fig. *@figclientServer*). The initiative of
-the communication lies with the client. In HTTP parlance, the client requests a resource. A resource, sometimes also called an entity, is the combination of a
+A client, often called user-agent, submits an HTTP request to a server which will respond with an HTTP response (see Fig. *@figclientServer*). 
+The initiative of the communication lies with the client. In HTTP parlance, the client requests a resource. A resource, sometimes also called an entity, is the combination of a
 collection of bytes and a mime-type. A simple text resource will consist of bytes encoding the string in some encoding, for example UTF-8, and the mime-type
 ==text/plain;charset=utf-8==, in contrast, an HTML resource will have a mime-type like ==text/html;charset=utf-8==.
 
@@ -45,16 +47,15 @@ Installation or updating instructions can be found on *its web site>http://zn.st
 The key object to programmatically execute HTTP requests is called ==ZnClient==. You instantiate it, use its rich API to configure and execute an HTTP request
 and access the response. ==ZnClient== is a stateful object that acts as a builder.
 
-!!! Basic Usage
-
+!!!! Basic Usage
 Let's get started with the simplest possible usage.
 
 [[[
 ZnClient new get: 'http://zn.stfx.eu/zn/small.html'.
 ]]]
 
-Select the expression and print its result. You should get a ==String== back containing a very small HTML document. The ==get:== method
-belongs to the convenience API. Let's use a more general API to be a bit more explicit about what happened.
+Select the expression and print its result. You should get a ==String== back containing a very small HTML document. The ==get:== method belongs to the convenience API. 
+Let's use a more general API to be a bit more explicit about what happened.
 
 [[[
 ZnClient new
@@ -63,8 +64,8 @@ ZnClient new
    response.
 ]]]
 
-Here we explicitly set the url of the resource to access using ==url:==, then we execute an HTTP GET using ==get== and we finally ask for the response object
-using ==response==. The above returns a ==ZnResponse== object. Of course you can inspect it. It consists of 3 elements:
+Here we explicitly set the url of the resource to access using ==url:==, then we execute an HTTP GET using ==get== and we finally ask for the response object using ==response==. 
+The above returns a ==ZnResponse== object. Of course you can inspect it. It consists of 3 elements:
 
 # a ==ZnStatusLine== object,
 # a ==ZnHeaders== object and
@@ -81,13 +82,12 @@ client itself. The headers contain meta data related to the response, including:
 The entity is the actual resource: the bytes that should be interpreted in the context of the content-type mime-type. Zn  automatically converts non-binary
 mime-types into ==String==s using the correct encoding. In our example, the entity is an instance of ==ZnStringEntity==, a concrete subclass of ==ZnEntity==.
 
-Like any Smalltalk object, you can inspect or explore the ==ZnResponse== object. You might be wondering how this response was actually transferred over the
-network. That is easy with Zinc, as the key HTTP objects all implement ==writeOn:== that displays the raw format of the response i.e. what has been transmitted
-through the network.
+Like any object, you can inspect or explore the ==ZnResponse== object. You might be wondering how this response was actually transferred over the network. 
+That is easy with Zinc, as the key HTTP objects all implement ==writeOn:== that displays the raw format of the response i.e., what has been transmitted through the network.
 
 [[[
 | response |
-response := (ZnClient new)
+response := ZnClient new
    url: 'http://zn.stfx.eu/zn/small.html';
    get;
    response.
@@ -330,7 +330,8 @@ ZnClient new
    get.
 ]]]
 
-Query parameters have a name and a value. Certain special characters have to be encoded. You can build the same URL with the ==ZnUrl== object, in several ways.
+Query parameters have a name and a value. Certain special characters have to be encoded.
+You can build the same URL with the ==ZnUrl== object, in several ways.
 
 [[[
 ZnUrl new
@@ -344,12 +345,16 @@ ZnUrl new
 
 If you print the above expression, it gives you the printable representation of the URL.
 
-= http://www.google.com/search?q=Pharo%20Smalltalk
+[[[
+http://www.google.com/search?q=Pharo%20Smalltalk
+]]]
 
 This string version can easily be parsed again into a ==ZnUrl== object
 
-= 'http://www.google.com/search?q=Pharo%20Smalltalk' asZnUrl.
-= 'http://www.google.com:80/search?q=Pharo Smalltalk' asZnUrl.
+[[[
+'http://www.google.com/search?q=Pharo%20Smalltalk' asZnUrl.
+'http://www.google.com:80/search?q=Pharo Smalltalk' asZnUrl.
+]]]
 
 Note how the ==ZnUrl== parser is forgiving with respect to the space, like most browsers would do. When producing an external representation, proper encoding
 will take place. Please consult the class comment of ==ZnUrl== for a more detailed look at the capabilities of ==ZnUrl== as a standalone object.
@@ -357,7 +362,6 @@ will take place. Please consult the class comment of ==ZnUrl== for a more detail
 
 
 !!! Submitting HTML Forms
-
 In many web applications HTML forms are used. Examples are forms to enter a search string, a form with a username and password to log in or complex registration
 forms. In the classic and most common way, this is implemented by sending the data entered in the fields of a form to the server when a submit button is clicked.
 It is possible to implement the same behavior programmatically using ==ZnClient==.
@@ -484,9 +488,9 @@ A regular request for a resource is done using a GET request. A GET request does
 information to the server is by encoding it in the URL, either in the path or in query variables. (To be 100% correct we should add that data can be sent as
 custom headers as well.)
 
-!!! PUT and POST Methods
+!!!! PUT and POST Methods
 
-HTTP provides for two methods (or verbs) to send information to a server. These are called PUT and POST. They both send an entity to the server in order to transfer data.
+HTTP provides for two methods (or verbs) to send information to a server. These are called PUT and POST. They both send an entity to the server to transfer data.
 
 In the subsection about submitting HTML forms we already saw how POST is used to send either a ==ZnApplicationFormUrlEncodedEntity== or to send a ==ZnMultiPartFormDataEntity== containing structured data to a server.
 
@@ -517,7 +521,7 @@ contains this URL both in the ==Location== header accessible via the message ==l
 When a POST successfully created the resource, its HTTP response will be 201 Created. PUT is generally used to update an existing resource of which you know the
 exact URL (or URI). When a PUT is successful, its HTTP response will be just 200 OK and nothing else will be returned. When we will discuss REST Web Service APIs, we will come back to this.
 
-!!! DELETE and other Methods
+!!!! DELETE and other Methods
 
 The fourth member of the common set of HTTP methods is DELETE. It is very similar to both GET and PUT: you just specify an URL of the resource that you want to
 delete or remove. When successful, the server will just reply with a 200 OK. That is all there is to it.
@@ -586,7 +590,7 @@ the body entity. Cookies will be resubmitted. Zn also handles relative redirect 
 
 !!!  If-Modified-Since
 
-A client that already requested a resource in the past can also ask a server if that resource has been modified, i.e. is newer, since he last requested it. If so,
+A client that already requested a resource in the past can also ask a server if that resource has been modified, i.e., is newer, since he last requested it. If so,
 the server will give a quick 304 Not Modified response without sending the resource over again. This is done by setting the If-Modified-Since header using ==ifModifiedSince:==.
 This works both for regular requests as well as for downloads.
 
@@ -834,7 +838,7 @@ start by browsing the ==proxy== method category of ==ZnNetworkingUtils==.
 
 !!!Conclusion
 
-Zinc is a solid and very flexible HTTP library. This chapter only presented the client-side of Zinc i.e. how to use it to send HTTP requests and receive
+Zinc is a solid and very flexible HTTP library. This chapter only presented the client-side of Zinc i.e., how to use it to send HTTP requests and receive
 responses back. Through several code examples, we demonstrated some of the possibilities of Zinc and also its simplicity. Zinc relies on a very good
 object-centric decomposition of the HTTP concepts. It results in an easy to understand and extensible library.
 
