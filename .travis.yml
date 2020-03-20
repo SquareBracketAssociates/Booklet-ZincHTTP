@@ -24,7 +24,7 @@ script:
 after_success:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
   - mv _result/pdf/index.pdf zinc.pdf
-  - bash upload.sh smacc.pdf
+  - bash upload.sh zinc.pdf
 
 branches:
   except:
