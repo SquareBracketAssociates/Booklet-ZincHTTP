@@ -1,6 +1,8 @@
 !! Tips and Tricks
 @cha:zinc-tips
 
+This chapter will evolve over time and collect nice approaches to various practical problems you may encounter. 
+
 !!! DNS over HTTPS (DoH)
 Firefox switched over to using 'DNS over HTTPS (DoH)' by default (*https://blog.mozilla.org/netpolicy/2020/02/25/the-facts-mozillas-dns-over-https-doh/*).
 
