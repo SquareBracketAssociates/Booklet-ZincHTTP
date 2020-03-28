@@ -70,3 +70,59 @@ NeoSimplifiedDNSClient default addressForName: 'pharo.org'.
 ]]]
 
 
+!!! Serving static files
+
+Is it possible a Zinc server returns static files within a specific url path (like the ZnStaticFileServerDelegate) and also returns other logics as shown with ==map:#otherPath to: MyWebapp new== ?
+
+The ==ZnDefaultServerDelegate== can already do a lot, including the request. Consider part of the startup file of **http://zn.stfx.eu** which serves its own website, together with all the default builtin responses.
+
+So the following are all possible:
+- http://zn.stfx.eu
+- http://zn.stfx.eu/zn/index.html
+- http://zn.stfx.eu/xn/small.html
+- http://zn.stfx.eu/welcome
+- http://zn.stfx.eu/dw-bench
+- http://zn.stfx.eu/help
+
+(the last one lists all configured prefixes).
+
+[[[
+(ZnServer defaultOn: 8180)
+	logToTranscript;
+	logLevel: 1;
+	start.
+]]]
+
+[[[
+(staticFileServerDelegate := ZnStaticFileServerDelegate new)
+	prefixFromString: 'zn'; 
+	directory: '/home/stfx/zn' asFileReference.
+
+ZnServer default delegate prefixMap 
+	at: 'zn' 
+	put: [ :request | staticFileServerDelegate handleRequest: request ];
+	at: 'redirect-to-zn'
+	put: [ :request | ZnResponse redirect: '/zn/index.html' ];
+	at: '/'
+	put: 'redirect-to-zn'.
+]]]
+
+
+There is ==ZnPrefixMappingDelegate== you can use.
+
+[[[
+server
+   delegate: (ZnPrefixMappingDelegate
+      map: 'static' to: staticFileDelegate; 
+      map: 'app' to: myApp)
+]]]
+
+There is also ==ZnStaticFileDecoratorDelegate== if you want to mimick another typical setup where all urls that resolve to a file get served from disk and any other will be forwarded to you app.
+
+[[[
+server
+   delegate: (ZnStaticFileDecoratorDelegate
+      decorate: myApp
+      servingFilesFrom: 'static/')
+]]]
+
