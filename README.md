@@ -1,7 +1,7 @@
 # Zinc HTTP
 
-[![Download PDF](https://img.shields.io/badge/Download-PDF-9cf.svg)](https://github.com/SquareBracketAssociates/booklet-ZincHTTP/releases/download/latest/zinc.pdf)
-[![Centralized book generation](https://github.com/SquareBracketAssociates/booklet-ZincHTTP/actions/workflows/main.yml/badge.svg)](https://github.com/SquareBracketAssociates/booklet-ZincHTTP/actions/workflows/main.yml)
+[![Download PDF](https://img.shields.io/badge/Download-PDF-9cf.svg)](https://github.com/SquareBracketAssociates/Booklet-ZincHTTP/releases/download/latest/zinc.pdf)
+[![Centralized book generation](https://github.com/SquareBracketAssociates/Booklet-ZincHTTP/actions/workflows/main.yml/badge.svg)](https://github.com/SquareBracketAssociates/Booklet-ZincHTTP/actions/workflows/main.yml)
 
 Zinc is a superb HTTP client/Server library. It is developed by Sven van Caekenberghe and provides
 high quality code and use. 
